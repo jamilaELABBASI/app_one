@@ -1,0 +1,30 @@
+{
+    'name': "App One",
+    'author': "Jamila ELABBASI",
+    'category': "Real Estate",
+    'version': "19.0.0.1.0",
+
+    # modules nécessaires
+    'depends': ['base','sale_management','sale','account','contacts'],
+
+    # fichiers de données
+    'data': [
+        'security/ir.model.access.csv',
+        'views/property_menu.xml',
+        'views/property_view.xml',
+        'views/owner_view.xml',
+        'views/tag_view.xml',
+        'views/sale_order_view.xml',
+        'views/res_partner_view.xml',
+        'views/building_view.xml',
+        'reports/property_report.xml',
+    ],
+    # styles CSS
+    'assets':{
+        'web.assets_backend':['app_one/static/src/css/property.css']
+    },
+    # important !
+    'application': True,
+    "license": "LGPL-3",
+
+}

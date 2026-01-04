@@ -1,0 +1,131 @@
+<odoo>
+    <record id="property_report" model="ir.actions.report">
+        <field name="name">property report</field> <!--nom qui sera afficher au niveau du boutton print-->
+        <field name="model">property</field> <!-- nom du model dans le fichier .py-->
+        <field name="report_type">qweb-html</field> <!-- # on peut utiliser html ou pdf selon le besoin -->
+        <!-- par defaut cest pdf si on veut afficher sous forme de page html pour verifier avant de limprimer
+        je dois utiliser html au lieu du pdf
+             <field name="report_type">qweb-pdf</field>
+        -->
+        <!-- toujours en ecrit model_le nom du model-->
+        <field name="binding_model_id" ref="model_property"/> <!-- fais la relation avec le report et le model est il ajout le report au parmi des actions de la form view -->
+        <field name="binding_type">report</field> <!-- comment le print sera afficher si jai utiliser report print sera affichee siparement sinon sera aafficher parmi les actions si le cas par defaut-->
+        <field name="report_name">app_one.property_report_template</field> <!-- la template liee au boutton print -->
+   <!-- id du template qui sera afficher -->
+    </record>
+
+   <template id="property_report_template">
+    <!-- Container HTML -->
+    <t t-call="web.html_container">
+        <!-- Layout PDF (header + footer pagination automatiques) -->
+        <t t-call="web.external_layout">
+       <!-- <t t-call="web.basic_layout">
+            sans header + footer pagination
+       -->
+ <style>
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        td {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        .section-title {
+            background-color: #ddd;
+            font-weight: bold;
+            text-align: left;
+            padding: 6px;
+        }
+    </style>
+            <!-- Loop sur les enregistrements -->
+
+            <t t-foreach="docs" t-as="rec">
+                    <h1>Property Report</h1>
+                <table>
+                    <thead>
+                        <th colspan="4">General Information</th>
+                    </thead>
+                    <tbody>
+                        <td>Name</td>
+                        <td>
+                            <t t-esc="rec.name"></t>
+                        </td>
+                        <td>PostCode</td>
+                        <td>
+                            <t t-esc="rec.postcode"></t>
+                        </td>
+                    </tbody>
+                     <thead>
+                        <th colspan="4">Additional Information</th>
+                    </thead>
+                    <tbody>
+                        <td>Owner</td>
+                        <td>
+                            <t t-esc="rec.owner_id.name"/>
+                         <!--
+                         si on utilise t-field ca va recuperer le nom directement
+                            <span t-field="rec.owner_id"/>
+                         -->
+                        </td>
+                        <td>PostCode</td>
+                        <td>
+                            <t t-esc="rec.owner_phone"></t>
+                        </td>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <th>Description</th>
+                        <th>Area</th>
+                    </thead>
+                    <tbody>
+                        <td>
+                            <t t-foreach="rec.line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <t t-esc="line.description"/>
+                                    </td>
+                                    <td>
+                                         <t t-esc="line.area"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </td>
+                    </tbody>
+                </table>
+
+<!--
+                    <p><strong>Name:</strong> <span t-esc="o.name"/></p>
+                    <p><strong>Owner:</strong> <span t-esc="o.owner_id.name"/></p>
+                    <p><strong>Expected price:</strong> <span t-esc="o.expected_price"/></p>
+                    <p><strong>Selling price:</strong> <span t-esc="o.selling_price"/></p>
+                    <p><strong>Status:</strong> <span t-esc="o.state"/></p>
+-->
+
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+</odoo>

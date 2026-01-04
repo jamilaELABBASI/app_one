@@ -1,0 +1,61 @@
+<odoo>
+    <menuitem
+        id="real_estate_root_menu"
+        name="Real Estate"
+        web_icon="app_one,static/description/icon.png"
+    />
+    <!--
+    # id :
+        Identifiant unique du menu
+        Utilisé pour lier les sous-menus (parent)
+        Bonne pratique : nom clair + _menu
+    # name :
+        Texte affiché dans le menu Odoo
+        Peut être traduit (i18n)
+        i18n = internationalisation
+        👉 Ça veut dire que le texte peut être affiché dans plusieurs langues
+        (fr, en, ar, es…).
+
+    # web_icon :
+        Icône du menu principal
+        Format :
+        module_name,relative_path
+     -->
+
+    <menuitem
+        id="properties_menu"
+        name="Properties"
+        parent="real_estate_root_menu"
+    />
+    <menuitem
+        id="configuration_menu"
+        name="Configuration"
+        parent="real_estate_root_menu"
+    />
+      <menuitem
+        id="building_menu"
+        name="Building"
+        parent="real_estate_root_menu"
+    />
+</odoo>
+
+
+<!--
+
+🔹 menuitem → crée un menu
+🔹 id="real_estate_root_menu" → identifiant unique dans tout Odoo
+🔹 name="Real Estate" → texte affiché dans le menu
+🔹 Pas de parent → donc c’est un menu principal (menu racine)
+
+📌 Ce menu apparaîtra en haut de l’interface (barre horizontale).
+
+-->
+
+<!--
+
+🔹 name="Properties" → texte affiché
+🔹 parent="real_estate_root_menu" → devient un sous-menu du menu "Real Estate"
+
+📌 Il ne fonctionne pas seul ! Il doit pointer vers le menu parent.
+
+-->

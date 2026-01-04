@@ -1,0 +1,41 @@
+<odoo>
+    <!-- Vues pour le modèle tag -->
+    <record id="tag_view_list" model="ir.ui.view">
+        <field name="name">tag list</field>
+        <field name="model">tag</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="tag_view_form" model="ir.ui.view">
+        <field name="name">tag form</field>
+        <field name="model">tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action pour ouvrir les vues du modèle tag -->
+    <record id="tag_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">tag</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu pour accéder aux tags -->
+    <menuitem
+        id="tag_menu_item"
+        name="Tags"
+        parent="configuration_menu"
+        action="tag_action"
+    />
+</odoo>

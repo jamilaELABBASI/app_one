@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">view order form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <!-- base.view_partner_form lid de la vue principale
+        cest externel id dans la vue qu on veut changer pour le voir il suffit dactiver developper mode et clicker sur list view
+        -->
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="property_id"/>
+                <field name="price" related="property_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
