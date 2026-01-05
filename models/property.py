@@ -1,6 +1,6 @@
 from email.policy import default
 from odoo import models, fields,api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo.orm.types import ValuesType
 
 
@@ -30,6 +30,7 @@ class Property(models.Model):
         # assigner à un utilisateur
         # mettre une date limite
         # 👉 Sans écrire de code supplémentaire.
+    ref=fields.Char(default='New',readonly=True)
     name = fields.Char(required=True,default='Nom',size=12)
     description = fields.Text(tracking=True)
     postcode = fields.Char()
@@ -231,7 +232,24 @@ class Property(models.Model):
             if rec.expected_selling_date and rec.expected_selling_date < fields.Date.today():
                 rec.is_late=True
 
-
+    # env pour acceder a nimport quel model ex user , company ...
+    def action(self):
+        print('******************* User Infos *******************')
+        """ print(self.env.user)
+        print(self.env.user.login)
+        print(self.env.user.name)
+        print(self.env.user.email)
+        print(self.env.user.phone) """
+        print('******************* Company Infos *******************')
+        """print(self.env.company.street)
+        print(self.env.company.partner_id)
+        print(self.env.context)
+        print('******************* Object *******************')
+        print(self.env['owner'].create({'name':'name two','phone':'0661243562'}))
+        print(self.env['owner'].search([]))
+        print(self.env['owner'].search([('id', '=', 1)], limit=1))
+        print(self.env['owner'].browse([('id','=',1)]))
+         """
 
 
 class PropertyLine(models.Model):

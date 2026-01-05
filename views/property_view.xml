@@ -55,6 +55,7 @@
                 <form  create="1" edit="1" delete="1">
                     <sheet>
                         <header>
+                            <button name="action" type="object" string="Action" class="btn-primary"/>
                             <button name="action_state" type="object" string="Change State" class="btn-success"/>
                             <button name="action_draft" type="object" string="Set To Draft" class="btn-primary"/>
                             <button name="action_pending" type="object" string="Set To Pending" class="btn-danger"/>
@@ -65,10 +66,10 @@
                             -->
                         </header>
                         <div class="oe_title">
+                            <label for="ref"/>
+                                <h2> <field name="ref"/> </h2>
                             <label for="name"/>
-                                <h1>
-                                    <field name="name"/>
-                                </h1>
+                                <h3> <field name="name"/> </h3>
                         </div>
                        <group>
                             <group string="General Infos">
