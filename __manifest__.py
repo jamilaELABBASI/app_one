@@ -18,6 +18,8 @@
         'views/res_partner_view.xml',
         'views/building_view.xml',
         'reports/property_report.xml',
+        'data/sequence.xml',
+        'views/property_history_view.xml',
     ],
     # styles CSS
     'assets':{

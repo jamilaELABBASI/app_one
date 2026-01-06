@@ -48,80 +48,81 @@
     -->
 
         <!-- Vue formulaire -->
-        <record id="property_view_form" model="ir.ui.view">
-            <field name="name">property form</field>
-            <field name="model">property</field>
-            <field name="arch" type="xml">
-                <form  create="1" edit="1" delete="1">
-                    <sheet>
-                        <header>
-                            <button name="action" type="object" string="Action" class="btn-primary"/>
-                            <button name="action_state" type="object" string="Change State" class="btn-success"/>
-                            <button name="action_draft" type="object" string="Set To Draft" class="btn-primary"/>
-                            <button name="action_pending" type="object" string="Set To Pending" class="btn-danger"/>
-                            <button name="action_sold" type="object" string="Set To Sold" class="btn-warning"/>
-                            <field name="state" widget="statusbar" />
-                            <!-- si je veux affiher 2 status statusbar_visible="draft,sold"
-                            pour le rendre state clickable options="{'clickable': 1}"
-                            -->
-                        </header>
-                        <div class="oe_title">
-                            <label for="ref"/>
-                                <h2> <field name="ref"/> </h2>
-                            <label for="name"/>
-                                <h3> <field name="name"/> </h3>
-                        </div>
-                       <group>
-                            <group string="General Infos">
-                                <field name="owner_id"/>
-                                <field name="date_availability" />
-                                <field name="expected_selling_date" />
-                                <field name="postcode" />
-                                <field name="expected_price"/>
-                                <field name="selling_price"/>
-                                <field name="diff"/>
-                                <field name="bedrooms"/>
-                                <field name="living_area"/>
-                                <field name="facades"/>
-                            </group>
-                            <group string="Additional Infos">
-                                <field name="owner_phone"/>
-                                <field name="owner_adresse"/>
-                                <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garage"/>
-                                <field name="garden_orientation"/>
-                                <field name="active"/>
-                                <field name="is_late"/>
-                            </group>
-                       </group>
-                        <group>
-                            <field name="description"/>
-                            <field name="tag_ids" widget="many2many_tags"/>
-                        </group>
-                    </sheet>
-                    <sheet>
-                        <!-- ajouter logs -->
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
+    <record id="property_view_form" model="ir.ui.view">
+        <field name="name">property form</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <form  create="1" edit="1" delete="1">
+                <sheet>
+                    <header>
+                        <button name="action" type="object" string="Action" class="btn-primary"/>
+                        <button name="action_state" type="object" string="Change State" class="btn-success"/>
+                        <button name="action_draft" type="object" string="Set To Draft" class="btn-primary" invisible="state=='draft'"/>
+                        <button name="action_pending" type="object" string="Set To Pending" class="btn-danger" invisible="state=='pending'"/>  <!-- invisible="state in ['draft','closed']  invisible="state!='pending'" -->
+                        <button name="action_sold" type="object" string="Set To Sold" class="btn-warning" invisible="state=='sold'"/>
+                        <button name="action_closed" type="object" string="Set to closed" class="btn-success" invisible="state=='closed'"/>
+                        <field name="state" widget="statusbar" />
+                        <!-- si je veux affiher 2 status statusbar_visible="draft,sold"
+                        pour le rendre state clickable options="{'clickable': 1}"
+                        -->
+                    </header>
+                    <div class="oe_title">
+                        <label for="ref"/>
+                            <h2> <field name="ref"/> </h2>
+                        <label for="name"/>
+                            <h3> <field name="name"/> </h3>
                     </div>
-                    </sheet>
-                    <notebook>
-                        <page string="Bedrooms">
-                                <field name="line_ids">
-                                    <list editable="bottom">
-                                        <!-- editable="bottom" ne pas afficher pop up pour ajouter un nouveau record et mettre le champs clickable et on peut le modifier directement -->
-                                        <field name="area"/>
-                                        <field name="description"/>
-                                    </list>
-                                </field>
-                        </page>
-                    </notebook>
-                </form>
-            </field>
-        </record>
+                   <group>
+                        <group string="General Infos">
+                            <field name="owner_id"/>
+                            <field name="date_availability" readonly="state=='closed'"/>
+                            <field name="expected_selling_date" readonly="state in ['sold','closed']"/>
+                            <field name="postcode"/>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                            <field name="diff"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="facades"/>
+                        </group>
+                        <group string="Additional Infos">
+                            <field name="owner_phone"/>
+                            <field name="owner_adresse"/>
+                            <field name="garden"/>
+                            <field name="garden_area"/>
+                            <field name="garage"/>
+                            <field name="garden_orientation"/>
+                            <field name="active"/>
+                            <field name="is_late"/>
+                        </group>
+                   </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <sheet>
+                    <!-- ajouter logs -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </sheet>
+                <notebook>
+                    <page string="Bedrooms">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <!-- editable="bottom" ne pas afficher pop up pour ajouter un nouveau record et mettre le champs clickable et on peut le modifier directement -->
+                                    <field name="area"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
 
 
           <!--  Vu de recherche
@@ -149,45 +150,45 @@
         </record>
     -->
 
-        <!-- Action -->
-        <record id="property_action" model="ir.actions.act_window">
-            <field name="name">property</field>
-            <field name="res_model">property</field>
-            <field name="view_mode">list,form</field>
-        </record>
+    <!-- Action -->
+    <record id="property_action" model="ir.actions.act_window">
+        <field name="name">property</field>
+        <field name="res_model">property</field>
+        <field name="view_mode">list,form</field>
+    </record>
         <!--   -->
     # ajouter server action avec code on a vu aussi via interface video 44
     # ajouter une action aux actions dinterface
-        <record id="property_closed_server_action" model="ir.actions.server">
-            <field name="name">Closed</field>
-            <field name="model_id" ref="model_property"/>
-            <field name="binding_model_id" ref="model_property"/>
-            <field name="state">code</field>
-            <field name="code">
-                action=records.action_closed()
-            </field>
-        </record>
+    <record id="property_closed_server_action" model="ir.actions.server">
+        <field name="name">Closed</field>
+        <field name="model_id" ref="model_property"/>
+        <field name="binding_model_id" ref="model_property"/>
+        <field name="state">code</field>
+        <field name="code">
+            action=records.action_closed()
+        </field>
+    </record>
 
     <!-- Scheduled Actions) dans linterface : technical -> Scheduled Actions -->
-        <record id="check_selling_date_cron" model="ir.cron">
-                <field name="name">Property: Check selling date</field>
-                <field name="model_id" ref="model_property"/>
-                <field name="state">code</field>  <!-- Indique le type d’action code = exécuter du code Python -->
-                <field name="code">model.check_expected_selling_date()</field>
-                <field name="interval_number">1</field>
-                <field name="interval_type">minutes</field>
-                <!--<field name="repeat_type">number</field>
-                <field name="repeat_number">1</field>
-                # ilimited (unfonctionnel)if i want number exact of day i do make 3 etc
-                #Active ou désactive le cron
-                -->
-                <field name="active">True</field>
-        </record>
+    <record id="check_selling_date_cron" model="ir.cron">
+            <field name="name">Property: Check selling date</field>
+            <field name="model_id" ref="model_property"/>
+            <field name="state">code</field>  <!-- Indique le type d’action code = exécuter du code Python -->
+            <field name="code">model.check_expected_selling_date()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <!--<field name="repeat_type">number</field>
+            <field name="repeat_number">1</field>
+            # ilimited (unfonctionnel)if i want number exact of day i do make 3 etc
+            #Active ou désactive le cron
+            -->
+            <field name="active">True</field>
+    </record>
         <!-- Menu -->
-        <menuitem
-            id="property_menu_item"
-            name="Properties"
-            parent="properties_menu"
-            action="property_action"
-        />
+    <menuitem
+        id="property_menu_item"
+        name="Properties"
+        parent="properties_menu"
+        action="property_action"
+    />
 </odoo>

@@ -92,7 +92,7 @@ class Property(models.Model):
         ( 'draft','Draft'),
         ( 'pending','Pending'),
         ( 'sold','Sold'),
-        ( 'close','Closed'),
+        ( 'closed','Closed'),
     ],default='draft')
 
     # pour activer l'archivage
@@ -200,34 +200,38 @@ class Property(models.Model):
 
     def action_draft(self):
         for rec in self:
-            print('inside draft action method')
+            self.create_history_record(rec.state,"draft")
+            #print('inside draft action method')
             rec.state="draft"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
 
     def action_pending(self):
         for rec in self:
-            print('inside draft action method')
+            #print('inside draft action method')
+            self.create_history_record(rec.state,"pending")
             rec.state = "pending"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
 
     def action_sold(self):
         for rec in self:
-            print('inside draft action method')
+            self.create_history_record(rec.state,"sold")
+            #print('inside draft action method')
             rec.state = "sold"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
 
     def action_closed(self):
         for rec in self:
-            print('inside action_closed method')
-            rec.state="close"
+            self.create_history_record(rec.state,"closed")
+            #print('inside action_closed method')
+            rec.state="closed"
 
     def check_expected_selling_date(self):
-        print('inside check_expected_selling_date method')
-        print(self)
+        #print('inside check_expected_selling_date method')
+        #print(self)
         property_ids=self.search([]) # recuperer tooous  les enregistrements equivalent de select * from property;
-        print(property_ids)
+        #print(property_ids)
         for rec in property_ids:
-            print(rec)
+            #print(rec)
             #verifier si rec.expected_selling_date  a une valeur est elle est pas nul
             if rec.expected_selling_date and rec.expected_selling_date < fields.Date.today():
                 rec.is_late=True
@@ -250,6 +254,37 @@ class Property(models.Model):
         print(self.env['owner'].search([('id', '=', 1)], limit=1))
         print(self.env['owner'].browse([('id','=',1)]))
          """
+
+    @api.model
+    def create(self,vals):
+        res=super(Property,self).create(vals)
+        if res.ref=='New':
+            res.ref=self.env['ir.sequence'].next_by_code('property_seq')
+        return res
+
+
+    def create_history_record(self,old_state,new_state):
+        for rec in self:
+            rec.env['property.history'].create({
+                'user_id':rec.env.uid,
+                'property_id':rec.id,
+                'old_state':old_state,
+                'new_state':new_state,
+            })
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class PropertyLine(models.Model):
