@@ -1,7 +1,5 @@
-from email.policy import default
 from odoo import models, fields,api
-from odoo.exceptions import ValidationError, UserError
-from odoo.orm.types import ValuesType
+from odoo.exceptions import ValidationError
 
 
 class Property(models.Model):
@@ -138,9 +136,9 @@ class Property(models.Model):
             # et lorsqu'on a afficher rec dans method depens on voir lid de record enregistrer
             print('inside _onchange_expected_price method')
             # si l'utilisateur entrer une valeur negative on va lui afficher un msg d'erreur
-            return{
-                'warning':{'title':'warning','message':'negative value','type':'notification'}
-            }
+        return{
+            'warning':{'title':'warning','message':'negative value','type':'notification'}
+        }
 
     @api.constrains('bedrooms')
     def _check_bedrooms_greator_zero(self):
@@ -263,33 +261,26 @@ class Property(models.Model):
         return res
 
 
-    def create_history_record(self,old_state,new_state):
+    def create_history_record(self,old_state,new_state,reason):
         for rec in self:
             rec.env['property.history'].create({
                 'user_id':rec.env.uid,
                 'property_id':rec.id,
                 'old_state':old_state,
                 'new_state':new_state,
+                'reason':reason or "", # si reason n'a pas de valeur va prendre une chain evide
             })
 
-        
-
-
-
-
-
-
-
-
-
-
+    def action_open_change_state_wizard(self):
+        action=self.env['ir.actions.actions']._for_xml_id('app_one.property_change_state_wizard_window_action')
+        action['context']={'default_property_id':self.id}
+        return action
 
 
 
 
 class PropertyLine(models.Model):
     _name ="property.line"
-
     property_id=fields.Many2one('property')
     area=fields.Float()
     description=fields.Char()

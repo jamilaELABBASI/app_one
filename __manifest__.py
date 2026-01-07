@@ -20,6 +20,7 @@
         'reports/property_report.xml',
         'data/sequence.xml',
         'views/property_history_view.xml',
+        'views/change_state_wizard_view.xml',
     ],
     # styles CSS
     'assets':{

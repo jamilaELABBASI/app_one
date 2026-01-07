@@ -184,6 +184,17 @@
             -->
             <field name="active">True</field>
     </record>
+
+    <record id="property_change_state_wizard_server_action" model="ir.actions.server">
+        <field name="name">Change State</field>
+        <field name="model_id" ref="model_property"/>
+        <field name="binding_model_id" ref="model_property"/>
+        <field name="state">code</field>
+        <field name="code">
+           action=records.action_open_change_state_wizard()
+        </field>
+    </record>
+
         <!-- Menu -->
     <menuitem
         id="property_menu_item"
