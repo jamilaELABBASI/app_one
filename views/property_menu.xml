@@ -31,7 +31,10 @@
         id="configuration_menu"
         name="Configuration"
         parent="real_estate_root_menu"
+        groups="app_one.property_manager_group"
     />
+    <!-- ce menu sera afficher juste pour les users qu'appartient a ce groupe-->
+
       <menuitem
         id="building_menu"
         name="Building"

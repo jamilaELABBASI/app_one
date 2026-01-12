@@ -9,6 +9,7 @@
 
     # fichiers de données
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/property_menu.xml',
         'views/property_view.xml',

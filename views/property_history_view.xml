@@ -11,6 +11,7 @@
            </list>
         </field>
     </record>
+
     <record id="property_history_view_form" model="ir.ui.view">
         <field name="name">Property History Form</field>
         <field name="model">property.history</field>
@@ -26,6 +27,17 @@
                          <field name="new_state"/>
                          <field name="reason"/>
                     </group>
+                    <notebook>
+                        <page string="Property History Line">
+                            <field name="line_ids">
+                                <!-- readonly="1"  editable="bottom" -->
+                                <list>
+                                    <field name="description"/>
+                                    <field name="area"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -37,8 +49,9 @@
     </record>
     <menuitem
             id="property_history_menu_item"
-            name="History"
+            name="Property History"
             parent="properties_menu"
             action="property_history_action"
+            groups="app_one.property_manager_group"
     />
 </odoo>

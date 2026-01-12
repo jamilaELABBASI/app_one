@@ -1,6 +1,6 @@
 from odoo import models, fields,api
 from odoo.exceptions import ValidationError
-
+from datetime import timedelta
 
 class Property(models.Model):
     _name = "property"
@@ -47,7 +47,7 @@ class Property(models.Model):
     bedrooms = fields.Integer()
     living_area = fields.Integer()
     facades = fields.Integer()
-    garage = fields.Boolean()
+    garage = fields.Boolean(groups="app_one.property_manager_group")
     garden = fields.Boolean()
     garden_area = fields.Integer()
     garden_orientation = fields.Selection([
@@ -110,6 +110,9 @@ class Property(models.Model):
     ]
 
     line_ids=fields.One2many("property.line","property_id")
+    create_time=fields.Datetime(default=fields.Datetime.now())
+    next_time=fields.Datetime(compute='_compute_next_time')
+
     # depends on utilise toujours avec les champs compute
     # 'owner_id.phone' ca veux dire quand le phone change executer pour moi cette method
     # depends can take the view fields and model fields or relationnal fields as owner_id.phone because is a field in owner model
@@ -198,7 +201,7 @@ class Property(models.Model):
 
     def action_draft(self):
         for rec in self:
-            self.create_history_record(rec.state,"draft")
+            self.create_history_record(rec.state,"draft",'action_draft_method')
             #print('inside draft action method')
             rec.state="draft"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
@@ -206,20 +209,20 @@ class Property(models.Model):
     def action_pending(self):
         for rec in self:
             #print('inside draft action method')
-            self.create_history_record(rec.state,"pending")
+            self.create_history_record(rec.state,"pending",'action_pending_method')
             rec.state = "pending"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
 
     def action_sold(self):
         for rec in self:
-            self.create_history_record(rec.state,"sold")
+            self.create_history_record(rec.state,"sold",'action_sold_method')
             #print('inside draft action method')
             rec.state = "sold"
             # on peut aussi changer la valeur de la variable via la methode de update rec.write({'state':'draft'})
 
     def action_closed(self):
         for rec in self:
-            self.create_history_record(rec.state,"closed")
+            self.create_history_record(rec.state,"closed",'action_closed_method')
             #print('inside action_closed method')
             rec.state="closed"
 
@@ -268,13 +271,39 @@ class Property(models.Model):
                 'property_id':rec.id,
                 'old_state':old_state,
                 'new_state':new_state,
-                'reason':reason or "", # si reason n'a pas de valeur va prendre une chain evide
-            })
+                'reason':reason or "",      # si reason n'a pas de valeur va prendre une chain evide
+                'line_ids':[(0,0,{'description':line.description,'area':line.area }) for line in rec.line_ids],
+   })
+
+    """
+            # env contient l'environnement d'execution complet (tous les infos sur user(utilisateur courant),context,cr(connexion , db))
+    env =   ├── Modèles ORM(env['model'])
+            ├── Utilisateur(env.user, env.uid)
+            ├── Contexte(env.context)
+            ├── Société(env.company, env.companies)
+            ├── Base de données(env.cr)
+            ├── Langue(env.lang)
+            ├── Sécurité(sudo, is_superuser)
+            ├── Références XML(env.ref)
+            └── Mécanismes internes(registry, cache)
+    """
+
 
     def action_open_change_state_wizard(self):
-        action=self.env['ir.actions.actions']._for_xml_id('app_one.property_change_state_wizard_window_action')
-        action['context']={'default_property_id':self.id}
+        action=self.env['ir.actions.actions']._for_xml_id('app_one.property_change_state_wizard_window_action') #nom de lapp.id du record de window action
+        action['context']={'default_property_id':self.id} # cest le lien entre le wizard et property
         return action
+
+    @api.depends('create_time')
+    def _compute_next_time(self):
+        for rec in self:
+            if rec.create_time:
+                rec.next_time=rec.create_time+timedelta(hours=6)
+            else:
+                rec.next_time =False
+
+
+
 
 
 

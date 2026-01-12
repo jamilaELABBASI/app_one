@@ -10,6 +10,7 @@
                          <field name="reason" required="True"/>
                     </group>
                     <footer>
+                        <!-- si on a  appelle dune methode ou niveau dun boutton on utilise type object-->
                         <button string="Confirm" type="object" name="action_confirm" class="btn-primary"/>
                         <button string="Cancel" special="cancel" class="btn-secondary"/>
                     </footer>
