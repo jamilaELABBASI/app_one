@@ -29,7 +29,7 @@ class Property(models.Model):
         # mettre une date limite
         # 👉 Sans écrire de code supplémentaire.
     ref=fields.Char(default='New',readonly=True)
-    name = fields.Char(required=True,default='Nom',size=12)
+    name = fields.Char(required=True,default='Nom',size=20)
     description = fields.Text(tracking=True)
     postcode = fields.Char()
     date_availability = fields.Date(tracking=True)

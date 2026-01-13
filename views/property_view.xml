@@ -55,6 +55,9 @@
         <field name="arch" type="xml">
             <form  create="1" edit="1" delete="0"> <!-- masquer le button delete-->
                 <sheet>
+                    <!-- afficher une bonde -->
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="text-bg-success" invisible="state!='sold'"/>
                     <header>
                         <button name="action" type="object" string="Action" class="btn-primary"/>
 
