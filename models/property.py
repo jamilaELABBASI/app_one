@@ -252,9 +252,9 @@ class Property(models.Model):
         print(self.env.user.login)
         print(self.env.user.name)
         print(self.env.user.email)
-        print(self.env.user.phone) """
+        print(self.env.user.phone) 
         print('******************* Company Infos *******************')
-        """print(self.env.company.street)
+        print(self.env.company.street)
         print(self.env.company.partner_id)
         print(self.env.context)
         print('******************* Object *******************')
@@ -311,10 +311,13 @@ class Property(models.Model):
                 rec.next_time =False
 
 
-
-
-
-
+    def action_open_related_owner(self):
+        print('inside action_open_related_owner')
+        action=self.env['ir.actions.actions']._for_xml_id('app_one.owner_action')
+        view_id=self.env.ref('app_one.owner_view_form').id
+        action['res_id']=self.owner_id.id
+        action['views']=[[view_id,'form']]
+        return action
 
 class PropertyLine(models.Model):
     _name ="property.line"
