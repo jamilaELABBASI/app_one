@@ -312,7 +312,7 @@ class Property(models.Model):
 
 
     def action_open_related_owner(self):
-        print('inside action_open_related_owner')
+        #print('inside action_open_related_owner')
         action=self.env['ir.actions.actions']._for_xml_id('app_one.owner_action')
         view_id=self.env.ref('app_one.owner_view_form').id
         action['res_id']=self.owner_id.id
