@@ -56,6 +56,8 @@
             <form  create="1" edit="1" delete="0"> <!-- masquer le button delete-->
                 <sheet>
                     <header>
+                        <button name="action" type="object" string="Action" class="btn-primary"/>
+
                         <!-- invisible="state in ['draft','closed']  invisible="state!='pending'" -->
                        <!--
                         <button name="action" type="object" string="Action" class="btn-primary"/>

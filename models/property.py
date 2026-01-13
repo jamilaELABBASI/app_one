@@ -239,8 +239,16 @@ class Property(models.Model):
 
     # env pour acceder a nimport quel model ex user , company ...
     def action(self):
+        # domaine sous forme dune liste
+        #[("name","=","Villa"),("","",""),("","","")] # operator > < in =  != like(il contient la chaine de caratere meme si elle est en majuscule) ilike
+        #print(self.env['property'].search([("name","!=","Villa"),("bedrooms","=",2)]))
+        print(self.env['property'].search(['!',("name","!=","Villa"),("bedrooms","=",2)]))
+        print(self.env['property'].search(['&',("name","!=","Villa"),("bedrooms","=",2)])) # par defaut cest le AND tous les conditions doivent etre verifiees
+        print(self.env['property'].search(['|',("name","!=","Villa"),("bedrooms","=",2)])) # OR
+
+        """
         print('******************* User Infos *******************')
-        """ print(self.env.user)
+        print(self.env.user)
         print(self.env.user.login)
         print(self.env.user.name)
         print(self.env.user.email)
