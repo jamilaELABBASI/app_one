@@ -22,6 +22,7 @@
         'data/sequence.xml',
         'views/property_history_view.xml',
         'views/change_state_wizard_view.xml',
+        'views/product_template_view.xml',
     ],
     # styles CSS
     'assets':{
