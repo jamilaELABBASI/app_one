@@ -59,10 +59,10 @@
             <!-- Loop sur les enregistrements -->
 
             <t t-foreach="docs" t-as="rec">
-                    <h1>Property Report</h1>
+                    <h1 style="font-family:'Caveat-VariableFont_wght';">Property Report</h1>
                 <table>
                     <thead>
-                        <th colspan="4">General Information</th>
+                        <th colspan="4" style="font-family:'Caveat-VariableFont';">General Information</th>
                     </thead>
                     <tbody>
                         <td>Name</td>
@@ -75,7 +75,7 @@
                         </td>
                     </tbody>
                      <thead>
-                        <th colspan="4">Additional Information</th>
+                        <th colspan="4" style="font-family:'Caveat-VariableFont';">Additional Information</th>
                     </thead>
                     <tbody>
                         <td>Owner</td>
