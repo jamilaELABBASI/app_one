@@ -34,7 +34,7 @@ class PropertyApi(http.Controller):
                     "message": " property with this id not existe"
                 },status=400)
             property_rec = request.env['property'].sudo().browse(property_id)
-            # ou si on utilise type=json property_rec = request.env['property'].browse(property_id)
+            # ou property_rec = request.env['property'].search([('id', '=', property_id)], limit=1)
             print("PROPERTY ID =", property_id)
             vals = json.loads(request.httprequest.data)
             property_rec.write(vals)
@@ -49,5 +49,20 @@ class PropertyApi(http.Controller):
             },status=400)
 
 
+    @http.route(['/property/read/<int:property_id>'], methods=["GET"], type='http', auth='public', csrf=False)
+    def read_property(self,property_id):
+        try:
+            property_rec = request.env['property'].sudo().browse(property_id)
+            # return property_rec
+            if not property_rec.exists():
+                return request.make_json_response({
+                    "message": " property with this id not existe"
+                })
 
-
+            return request.make_json_response(
+                property_rec.read()[0] # on peut recuperer specifiques  attributs { property_rec.name} etc
+            ,status=200)
+        except Exception as e:
+            return request.make_json_response({
+                "message": "error "
+            },status=400)
