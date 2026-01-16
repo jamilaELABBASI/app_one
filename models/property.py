@@ -95,7 +95,13 @@ class Property(models.Model):
 
     # pour activer l'archivage
     active=fields.Boolean(default=True)
-
+    _sql_constraints = [
+        (
+            'property_unique_name',
+            'UNIQUE(name)',
+            'This property name already exists.'
+        )
+    ]
     # 1️⃣ 'unique_name'
         # Nom de la contrainte
         # Obligatoire, sert à identifier la contrainte dans la base de données.
@@ -105,9 +111,8 @@ class Property(models.Model):
     # 3️⃣ 'This name already exists. Please choose another.'
         # Message d’erreur affiché à l’utilisateur si la contrainte est violée.
 
-    _sql_constraints = [
-        ('unique_name', 'unique(name)', 'This name already exists. Please choose another.')
-    ]
+
+
 
     line_ids=fields.One2many("property.line","property_id")
     create_time=fields.Datetime(default=fields.Datetime.now())
