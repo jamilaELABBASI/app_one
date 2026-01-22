@@ -1,6 +1,7 @@
 from odoo import models, fields,api
 from odoo.exceptions import ValidationError
 from datetime import timedelta
+import requests
 
 class Property(models.Model):
     _name = "property"
@@ -29,7 +30,7 @@ class Property(models.Model):
         # mettre une date limite
         # 👉 Sans écrire de code supplémentaire.
     ref=fields.Char(default='New',readonly=True)
-    name = fields.Char(required=True,default='Nom',size=20)
+    name = fields.Char(required=True,default='Nom',size=200)
     description = fields.Text(tracking=True)
     postcode = fields.Char()
     date_availability = fields.Date(tracking=True)
@@ -323,6 +324,17 @@ class Property(models.Model):
         action['res_id']=self.owner_id.id
         action['views']=[[view_id,'form']]
         return action
+
+    def get_properties(self):
+        try:
+            response = requests.get(url='http://127.0.0.1:8069/property/all')
+            if response.status_code == 200:
+                print('success')
+            else:
+                print('fail')
+        except Exception as error:
+            raise ValidationError(str(error))
+
 
 class PropertyLine(models.Model):
     _name ="property.line"
