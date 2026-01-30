@@ -335,6 +335,14 @@ class Property(models.Model):
         except Exception as error:
             raise ValidationError(str(error))
 
+    def property_xlsx_report(self):
+        print('inside  property_xlsx_report')
+
+        return {
+            'type':'ir.actions.act_url',
+            'url':f'/property/excel/report/{self.env.context.get("active_ids")}',
+            'target':'new'
+        }
 
 class PropertyLine(models.Model):
     _name ="property.line"

@@ -6,6 +6,9 @@
         <field name="arch" type="xml">
             <!-- afficher en rouge lenregistrement qui sa date dexperation est passe-->
             <list class="header_custom" decoration-danger="is_late" multi_edit="1" create="1" edit="1" delete="0" >
+                <header>
+                    <button name="property_xlsx_report" type="object" string="Print Excel File" class="btn-primary"/>
+                </header>
                 <!-- multi_edit="1"
                 design quand je click sur un seule element jaccede au formulaire de modification
                 et si je selectionne deux ou plus je peux modifie les elements sur la liste directement
