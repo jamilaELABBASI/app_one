@@ -26,8 +26,15 @@
     ],
     # styles CSS
     'assets':{
-        'web.assets_backend':['app_one/static/src/css/property.css'],
-        'web_report_assets_common':['app_one/static/src/css/font.css']
+        'web.assets_backend':['app_one/static/src/css/property.css',
+                              'app_one/static/src/js/listView.js',
+                              'app_one/static/src/xml/listView.xml'
+                              ],
+
+        'web_report_assets_common':[
+            'app_one/static/src/css/font.css',
+
+                                    ]
     },
     # important !
     'application': True,
