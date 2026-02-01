@@ -143,7 +143,6 @@
         </field>
     </record>
 
-
           <!--  Vu de recherche
                 la bare de recherche chercher par nom par defaut
                 si vous voulez chercher par plus de champs vous devez crerr une vu de recherche
@@ -176,8 +175,8 @@
         <field name="view_mode">list,form</field>
     </record>
         <!--   -->
-    # ajouter server action avec code on a vu aussi via interface video 44
-    # ajouter une action aux actions dinterface
+<!--    # ajouter server action avec code on a vu aussi via interface video 44-->
+<!--    # ajouter une action aux actions dinterface-->
     <record id="property_closed_server_action" model="ir.actions.server">
         <field name="name">Closed</field>
         <field name="model_id" ref="model_property"/>
@@ -214,7 +213,7 @@
         </field>
     </record>
 
-        <!-- Menu -->
+             <!-- Menu -->
     <menuitem
         id="property_menu_item"
         name="Properties"
@@ -227,7 +226,7 @@
         <field name="tag">app_one.action_list_view</field>
     </record>
 
-      <menuitem
+    <menuitem
         id="property_menu_item"
         name="Properties OWL"
         parent="properties_menu"
