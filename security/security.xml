@@ -6,13 +6,13 @@
         <field name="name">Property User</field>
     </record>
     <!-- afficher pour chaque user ces propre properties-->
-    <!--<record id="property_record_rule_by_user" model="ir.rule">
-            <field name="name">property by suser</field>
-            <field name="model_id" ref="app_one.model_property"/>
-            <field name="domain_force">[('create_uid','=',user.id)]</field>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="1"/>
-            <field name="perm_unlink" eval="1"/>
-    </record> -->
+<!--    <record id="property_record_rule_by_user" model="ir.rule">-->
+<!--            <field name="name">property by suser</field>-->
+<!--            <field name="model_id" ref="app_one.model_property"/>-->
+<!--            <field name="domain_force">[('create_uid','=',user.id)]</field>-->
+<!--            <field name="perm_read" eval="1"/>-->
+<!--            <field name="perm_write" eval="1"/>-->
+<!--            <field name="perm_create" eval="1"/>-->
+<!--            <field name="perm_unlink" eval="1"/>-->
+<!--    </record>-->
 </odoo>

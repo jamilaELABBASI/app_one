@@ -1,0 +1,31 @@
+<odoo>
+   <data noupdate="True"><!-- desactiver la modification pour ces properties -->
+        <record id="property_01" model="property">
+            <field name="name">Property 01</field>
+            <field name="description">Description of property01</field>
+            <field name="postcode">P0001</field>
+            <field name="bedrooms">5</field>
+            <field name="date_availability">2025-01-02</field>
+        </record>
+        <record id="property_01" model="property">
+            <field name="name">Property 02</field>
+            <field name="description">Description of property02</field>
+            <field name="postcode">P0002</field>
+            <field name="bedrooms">5</field>
+            <field name="date_availability">2025-01-02</field>
+        </record>
+        <record id="property_03" model="property">
+            <field name="name">Property 03</field>
+            <field name="description">Description of property03</field>
+            <field name="postcode">P0003</field>
+            <field name="bedrooms">5</field>
+            <field name="date_availability">2025-01-02</field>
+        </record>
+    </data>
+</odoo>
+
+<!--  tu dois aller sur le button debug mode et cliquer sur become super admin
+pour voir cette property sur l'ui
+       car il sera affecter aau superadmin
+
+-->

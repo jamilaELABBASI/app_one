@@ -20,6 +20,7 @@
         'views/building_view.xml',
         'reports/property_report.xml',
         'data/sequence.xml',
+        'data/data.xml',
         'views/property_history_view.xml',
         'views/change_state_wizard_view.xml',
         'views/product_template_view.xml',

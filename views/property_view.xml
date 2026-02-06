@@ -113,6 +113,7 @@
                             <field name="garden_orientation"/>
                             <field name="active"/>
                             <field name="is_late"/>
+                            <field name="description"/>
                         </group>
                    </group>
                     <group>
