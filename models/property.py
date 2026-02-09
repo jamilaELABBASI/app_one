@@ -344,6 +344,12 @@ class Property(models.Model):
             'target':'new'
         }
 
+    def write(self, vals):
+        res = super().write(vals)
+        # envoyer un signal à tous les clients connectés
+        self.env['bus.bus']._sendone('property_channel', 'update', {'ids': self.ids})
+        return res
+
 class PropertyLine(models.Model):
     _name ="property.line"
     property_id=fields.Many2one('property')
