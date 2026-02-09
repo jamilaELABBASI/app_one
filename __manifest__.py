@@ -29,7 +29,8 @@
     'assets':{
         'web.assets_backend':['app_one/static/src/css/property.css',
                               'app_one/static/src/components/listView/listView.js',
-                              'app_one/static/src/components/listView/listView.xml'
+                              'app_one/static/src/components/listView/listView.xml',
+                              'app_one/static/src/components/listView/listView.css',
 
                               ],
 

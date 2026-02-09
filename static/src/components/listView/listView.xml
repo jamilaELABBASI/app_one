@@ -1,22 +1,65 @@
 <templates xml:space="preserve">
     <t t-name="app_one.ListView">
+    <div class="app_one_list_view">
+
         <h1>Hello world</h1>
+
+        <button class="btn btn-primary m-1 p-1"
+                t-on-click="createRecord">
+            Create Record
+        </button>
+
         <table>
             <thead>
                 <tr>
-                    <th>postcode</th>
+                    <th>Postcode</th>
                     <th>Name</th>
                     <th>Date Availability</th>
+                    <th>Action</th>
                 </tr>
             </thead>
+
             <tbody>
-               <t t-foreach="state.records" t-as="record" t-key="record.id">
+                <t t-foreach="state.records" t-as="record" t-key="record.id">
                     <tr>
-                    <td><t t-esc="record.name"/></td>
-                    <td><t t-esc="record.postcode"/></td>
-                </tr>
-               </t>
+                        <td><t t-esc="record.postcode"/></td>
+                        <td><t t-esc="record.name"/></td>
+                        <td><t t-esc="record.date_availability"/></td>
+
+                        <td>
+                            <button class="btn btn-danger" t-on-click="() => this.deleteRecord(record.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </t>
             </tbody>
         </table>
-    </t>
+
+    </div>
+</t>
+
+<!--    <t t-name="app_one.ListView">-->
+<!--        <h1>Hello world</h1>-->
+<!--        <button class="btn btn-primary m-1 p-1" t-on-click="createRecord">Create Record</button>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>postcode</th>-->
+<!--                    <th>Name</th>-->
+<!--                    <th>Date Availability</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--               <t t-foreach="state.records" t-as="record" t-key="record.id">-->
+<!--                    <tr>-->
+<!--                    <td><t t-esc="record.name"/></td>-->
+<!--                    <td><t t-esc="record.postcode"/></td>-->
+<!--                    <td><t t-esc="record.date_availability"/></td>-->
+<!--                        <td><button class="btn btn-danger">Delete</button></td>-->
+<!--                </tr>-->
+<!--               </t>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </t>-->
 </templates>

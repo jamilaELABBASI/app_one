@@ -1,0 +1,68 @@
+/* Container général */
+.app_one_list_view {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Titre */
+.app_one_list_view h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Bouton Create */
+.app_one_list_view .btn-primary {
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+/* Table */
+.app_one_list_view table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header */
+.app_one_list_view thead {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.app_one_list_view th {
+    padding: 12px;
+    text-align: left;
+}
+
+/* Body */
+.app_one_list_view td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Hover sur ligne */
+.app_one_list_view tbody tr:hover {
+    background-color: #f5f7fa;
+}
+
+/* Bouton Delete */
+.app_one_list_view .btn-danger {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app_one_list_view table {
+        font-size: 13px;
+    }
+
+    .app_one_list_view h1 {
+        font-size: 20px;
+    }
+}

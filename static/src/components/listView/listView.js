@@ -10,8 +10,12 @@ export class ListViewAction extends Component {
    setup() {
     this.state = useState({ records: [] });
     this.orm = useService("orm");
+    this.loadRecords();
     const bus = useService("bus_service");  // Odoo bus
+    this.intervalId=setInterval(()=>{this.loadRecords()},3000);
+    onWillUnmount(()=>{clearIntervalId(this.intervalId)});
 
+/*
     onWillStart(async () => {
         await this.loadRecords();
     });
@@ -21,7 +25,7 @@ export class ListViewAction extends Component {
         console.log("Changement détecté sur un autre onglet !");
         await this.loadRecords();  // rafraîchir la liste
     });
-
+*/
 
 /*
   // soit on utilise cette method a linterieur du setup() ou on creer une method dans la classe et on lappelle dans setup()
@@ -42,9 +46,25 @@ export class ListViewAction extends Component {
         const result= await this.orm.searchRead("property",[],[]); // lire les donnees apartir du model property
         console.log(result)
         this.state.records=result
-        }
-}
+        };
 
+        async createRecord(){
+            await this.orm.create("property",
+            [{name:"Nouvelle propertie",postcode:"189279"}]
+                );
+            await this.loadRecords(); // refresh UI
+        }
+
+
+        async deleteRecord(recordId){
+            await this.orm.unlink("property",[recordId]);
+            await this.loadRecords(); // refresh UI
+
+        }
+
+
+
+}
 
 
 
